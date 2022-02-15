@@ -1,0 +1,30 @@
+---
+title: "Untitled"
+author: "Kaylah Marcello"
+date: "2/15/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(RColorBrewer)
+library(paletteer)
+library(janitor)
+library(here)
+```
+
+```{r}
+cyano_bloom <- readr::read_csv("BIS15_dataset.csv")
+```
+
+```{r}
+glimpse(cyano_bloom)
+```
+```{r}
+summary(cyano_bloom)
+```
+##
