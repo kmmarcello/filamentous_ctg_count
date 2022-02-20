@@ -11,20 +11,57 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(tidyverse)
+library(janitor)
+library(skimr)
 library(RColorBrewer)
 library(paletteer)
-library(janitor)
 library(here)
+library("remotes")
+library(ggthemes)
 ```
 
+Predicting cyanobacterial blooms from Tromas et al. 2017 [paper](https://www.nature.com/articles/ismej201758#MOESM502)
 ```{r}
 cyano_bloom <- readr::read_csv("BIS15_dataset.csv")
+```
+```{r}
+cyano_bloom <- clean_names(cyano_bloom)
 ```
 
 ```{r}
 glimpse(cyano_bloom)
 ```
+
 ```{r}
 summary(cyano_bloom)
 ```
-##
+## Basic stuff: total phosphorus in μg/l (TP), total nitrogen in mg/l (TN), particulate phosphorus in μg/l (PP, the difference between TP and DP), particulate nitrogen in mg/l (PN, the difference between TN and DN), soluble reactive phosphorus in μg/l (DP), dissolved nitrogen in mg/l (DN)
+```{r}
+cyano_bloom
+```
+
+Are blooms during a particular months?
+```{r}
+c <- cyano_bloom %>% 
+  ggplot(aes(x=months, fill=bloom))+
+  geom_bar(na.rm=T, position="dodge")
+c
+```
+
+```{r}
+c+theme_classic()+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Bloom During any Particular Month",
+       x = NULL,
+       y= "sample",
+       fill= "Bloom")
+```
+
+```{r}
+cyano_bloom %>% 
+  ggplot(aes(x=years, fill=bloom))+
+  geom_bar(na.rm=T, position="dodge")
+```
+
+This is me just messing around -Kaylah
+
