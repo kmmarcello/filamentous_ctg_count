@@ -1,0 +1,35 @@
+---
+title: "Untitled"
+author: "Kaylah Marcello"
+date: "2/15/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(RColorBrewer)
+library(paletteer)
+library(janitor)
+library(here)
+```
+
+```{r}
+filament_cyanos <- readr::read_csv("data/filamentous_cyano_meta.csv")
+```
+
+```{r}
+glimpse(filament_cyanos)
+```
+
+```{r}
+summary(filament_cyanos)
+```
+
+```{r}
+
+```
+
