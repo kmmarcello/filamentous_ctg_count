@@ -49,10 +49,6 @@ gene_data <- filament_cyanos %>%
 gene_data
 ```
 
-```{r}
-function_gene <- filament_cyanos %>% 
-  
-```
 
 
 
