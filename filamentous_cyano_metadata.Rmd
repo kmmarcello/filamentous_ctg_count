@@ -45,12 +45,12 @@ gene_data <- filament_cyanos %>%
   pivot_longer(-genus,
                names_to = "gene",
                values_to = "gene_count") %>% 
-  filter()
+  filter(!is.na(gene_count))
 gene_data
 ```
 
 ```{r}
-genus_data <- filament_cyanos %>% 
+function_gene <- filament_cyanos %>% 
   
 ```
 
