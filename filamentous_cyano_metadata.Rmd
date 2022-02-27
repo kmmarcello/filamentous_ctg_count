@@ -38,7 +38,7 @@ filament_cyanos <- clean_names(filament_cyanos)
 names(filament_cyanos)
 ```
 
-#make a heat map out of this!
+#make a heat map out of this and maybe a shiny app?
 ```{r}
 gene_data <- filament_cyanos %>% 
   select(genus, contains("gene_")) %>% 
