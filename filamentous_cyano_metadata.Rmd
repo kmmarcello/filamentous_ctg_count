@@ -15,6 +15,7 @@ library(RColorBrewer)
 library(paletteer)
 library(janitor)
 library(here)
+library("skimr")
 ```
 
 ```{r}
@@ -27,5 +28,23 @@ summary(filament_cyanos)
 
 ```{r}
 head(filament_cyanos)
+```
+
+```{r}
+filament_cyanos <- clean_names(filament_cyanos)
+```
+
+```{r}
+names(filament_cyanos)
+```
+
+
+```{r}
+gene_data <- filament_cyanos %>% 
+  select(genus, contains("gene_")) %>% 
+  pivot_longer(-genus,
+               names_to = "gene",
+               values_to = "gene_count")
+gene_data
 ```
 
