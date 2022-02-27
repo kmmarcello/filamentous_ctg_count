@@ -38,13 +38,22 @@ filament_cyanos <- clean_names(filament_cyanos)
 names(filament_cyanos)
 ```
 
-
+#make a heat map out of this!
 ```{r}
 gene_data <- filament_cyanos %>% 
   select(genus, contains("gene_")) %>% 
   pivot_longer(-genus,
                names_to = "gene",
-               values_to = "gene_count")
+               values_to = "gene_count") %>% 
+  filter()
 gene_data
 ```
+
+```{r}
+genus_data <- filament_cyanos %>% 
+  
+```
+
+
+
 
