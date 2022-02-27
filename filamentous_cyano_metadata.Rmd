@@ -49,6 +49,12 @@ gene_data <- filament_cyanos %>%
 gene_data
 ```
 
+```{r}
+temperature_gene <- filament_cyanos %>% 
+  select(genus, tempurature_avg, contains("gene_")) %>% 
+  filter(!is.na(tempurature_avg))
+temperature_gene
+```
 
 
 
