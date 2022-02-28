@@ -56,10 +56,14 @@ gene_data_genus
 ```
 
 ```{r}
+gene_data_genus$gene_count <- as.factor(gene_data_genus$gene_count)
+```
+
+```{r}
 fil_heatmap <- gene_data_genus %>%
   ggplot(aes(y=gene, x=genus))+
   geom_tile(aes(fill= gene_count, color="white"))+
-  #scale_fill_viridis(discrete=TRUE, direction = -1)+
+  scale_fill_viridis(discrete=TRUE, direction = -1)+
   theme(legend.position = "right",
         text = element_text(size=6),
         axis.text.x = element_text(angle = 45, hjust=1))+
@@ -94,6 +98,8 @@ fil_heatmap <- gene_data_organism %>%
         axis.text.x = element_text(angle = 60, hjust=1))+
   coord_fixed()+ #maintains aspect ratio so 1 unit on x is 1 unit on y
   labs(title = "Cold Tolerance Gene Count for Cyanobacteria Strains",x = "Genome", y = "Gene")
+
+ggsave("fil_gene_count_heatmap.png", width=10, height=6, plot = fil_heatmap, dpi = 200)
 
 fil_heatmap 
 ```
