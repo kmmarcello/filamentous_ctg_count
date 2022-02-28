@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-install.packages("viridisLite")
+#install.packages("viridisLite")
 ```
 
 
@@ -20,7 +20,7 @@ library(RColorBrewer)
 library(paletteer)
 library(janitor)
 library(here)
-library("skimr")
+library(skimr)
 library(viridis)
 ```
 
