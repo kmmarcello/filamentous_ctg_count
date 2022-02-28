@@ -10,12 +10,18 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+install.packages("viridisLite")
+```
+
+
+```{r}
 library(tidyverse)
 library(RColorBrewer)
 library(paletteer)
 library(janitor)
 library(here)
 library("skimr")
+library(viridis)
 ```
 
 ```{r}
@@ -40,13 +46,56 @@ names(filament_cyanos)
 
 #make a heat map out of this and maybe a shiny app?
 ```{r}
-gene_data <- filament_cyanos %>% 
+gene_data_genus <- filament_cyanos %>% 
   select(genus, contains("gene_")) %>% 
   pivot_longer(-genus,
                names_to = "gene",
                values_to = "gene_count") %>% 
   filter(!is.na(gene_count))
-gene_data
+gene_data_genus
+```
+
+```{r}
+fil_heatmap <- gene_data_genus %>%
+  ggplot(aes(y=gene, x=genus))+
+  geom_tile(aes(fill= gene_count, color="white"))+
+  #scale_fill_viridis(discrete=TRUE, direction = -1)+
+  theme(legend.position = "right",
+        text = element_text(size=6),
+        axis.text.x = element_text(angle = 45, hjust=1))+
+  coord_fixed()+ #maintains aspect ratio so 1 unit on x is 1 unit on y
+  labs(title = "Cold Tolerance Gene Count for Cyanobacteria Genera",x = "Genome", y = "Gene")
+
+fil_heatmap 
+```
+
+```{r}
+gene_data_organism <- filament_cyanos %>% 
+  select(organism, contains("gene_")) %>% 
+  pivot_longer(-organism,
+               names_to = "gene",
+               values_to = "gene_count") %>% 
+  filter(!is.na(gene_count))
+gene_data_organism
+```
+
+```{r}
+gene_data_organism$gene_count <- as.factor(gene_data_organism$gene_count)
+```
+
+
+```{r}
+fil_heatmap <- gene_data_organism %>%
+  ggplot(aes(y=gene, x=organism))+
+  geom_tile(aes(fill= gene_count, color="white"))+
+  scale_fill_viridis(discrete=TRUE, direction = -1)+
+  theme(legend.position = "right",
+        text = element_text(size=6),
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  coord_fixed()+ #maintains aspect ratio so 1 unit on x is 1 unit on y
+  labs(title = "Cold Tolerance Gene Count for Cyanobacteria Strains",x = "Genome", y = "Gene")
+
+fil_heatmap 
 ```
 
 ```{r}
