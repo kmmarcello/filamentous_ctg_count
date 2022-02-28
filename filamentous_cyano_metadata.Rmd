@@ -1,8 +1,10 @@
 ---
-title: "Untitled"
+title: "Cold Tolerance Gene Variation In Cyanobacteria Over Global Temperature Gradients"
 author: "Kaylah Marcello"
 date: "2/15/2022"
-output: html_document
+output: 
+  html_document: 
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -70,6 +72,8 @@ fil_heatmap <- gene_data_genus %>%
   coord_fixed()+ #maintains aspect ratio so 1 unit on x is 1 unit on y
   labs(title = "Cold Tolerance Gene Count for Cyanobacteria Genera",x = "Genome", y = "Gene")
 
+ggsave("figures/fil_gene_count_genus_heatmap.png", width=10, height=6, plot = fil_heatmap, dpi = 200)
+
 fil_heatmap 
 ```
 
@@ -99,7 +103,7 @@ fil_heatmap <- gene_data_organism %>%
   coord_fixed()+ #maintains aspect ratio so 1 unit on x is 1 unit on y
   labs(title = "Cold Tolerance Gene Count for Cyanobacteria Strains",x = "Genome", y = "Gene")
 
-ggsave("fil_gene_count_heatmap.png", width=10, height=6, plot = fil_heatmap, dpi = 200)
+ggsave("figures/fil_gene_count_heatmap.png", width=10, height=6, plot = fil_heatmap, dpi = 200)
 
 fil_heatmap 
 ```
