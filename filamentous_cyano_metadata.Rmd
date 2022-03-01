@@ -29,7 +29,7 @@ library(viridis)
 ```{r}
 filament_cyanos <- readr::read_csv("data/filamentous_cyano_meta.csv")
 ```
-
+## Get an Idea of the Structure
 ```{r}
 summary(filament_cyanos)
 ```
@@ -45,7 +45,7 @@ filament_cyanos <- clean_names(filament_cyanos)
 ```{r}
 names(filament_cyanos)
 ```
-
+## Cold Tolerance Gene Counts by Genus and Specific Strain
 #make a heat map out of this and maybe a shiny app?
 ```{r}
 gene_data_genus <- filament_cyanos %>% 
@@ -108,6 +108,8 @@ ggsave("figures/fil_gene_count_heatmap.png", width=10, height=6, plot = fil_heat
 fil_heatmap 
 ```
 
+## Cyanobacteria Strain Environmental Temperatures
+
 ```{r}
 temperature_gene <- filament_cyanos %>% 
   select(organism, tempurature_avg, contains("gene_")) %>% 
@@ -130,6 +132,8 @@ ggsave("figures/temp_organism_plot.png", width=10, height=6, plot = temp_organis
 
 
 ```
+
+## Compare single gene count to temperature in previouse figure
 
 ```{r}
 #this one would be good for the shiny app bc you could change out each gene.

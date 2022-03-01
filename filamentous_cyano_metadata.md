@@ -92,7 +92,7 @@ filament_cyanos <- readr::read_csv("data/filamentous_cyano_meta.csv")
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
-
+## Get an Idea of the Structure
 
 ```r
 summary(filament_cyanos)
@@ -265,7 +265,7 @@ names(filament_cyanos)
 ## [39] "gene_des_a"                            
 ## [40] "temp_source"
 ```
-
+## Cold Tolerance Gene Counts by Genus and Specific Strain
 #make a heat map out of this and maybe a shiny app?
 
 ```r
@@ -322,7 +322,7 @@ fil_heatmap
 
 ```r
 gene_data_organism <- filament_cyanos %>% 
-  select(organism, contains("gene_")) %>% 
+  select(organism, contains("gene_")) %>% # get rid of the gene_ part for the final pres.
   pivot_longer(-organism,
                names_to = "gene",
                values_to = "gene_count") %>% 
@@ -372,35 +372,88 @@ fil_heatmap
 
 ![](filamentous_cyano_metadata_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
+## Cyanobacteria Strain Environmental Temperatures
+
 
 ```r
 temperature_gene <- filament_cyanos %>% 
-  select(genus, tempurature_avg, contains("gene_")) %>% 
+  select(organism, tempurature_avg, contains("gene_")) %>% 
   filter(!is.na(tempurature_avg))
 temperature_gene
 ```
 
 ```
 ## # A tibble: 27 × 23
-##    genus  tempurature_avg gene_gyr_a gene_nus_a gene_inf_c gene_inf_a gene_ots_a
-##    <chr>            <dbl>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
-##  1 Oscil…            29            2          1          1          1          0
-##  2 Limno…            40           NA         NA         NA         NA         NA
-##  3 Nostoc             3.2          2          1          2          0          1
-##  4 Trich…             8            2          1          1          1          0
-##  5 Nostoc            15.2          2          1          2          1          0
-##  6 Anaba…             2.5          2          1          1          1          0
-##  7 Nostoc            -2            2          1          2          2          0
-##  8 Nostoc            25            2          1          2          1          0
-##  9 Nostoc            20            2          1          2          1          0
-## 10 Nostoc            15            2          1          2          1          0
-## # … with 17 more rows, and 16 more variables: gene_dna_k <dbl>,
-## #   gene_rec_a <dbl>, gene_dna_j <dbl>, gene_ace_f <dbl>, gene_dea_d <dbl>,
-## #   gene_inf_b <dbl>, gene_tig <dbl>, gene_rnr <dbl>, gene_dna_a <dbl>,
-## #   gene_hup_b <dbl>, gene_rbf_a <dbl>, gene_yfl_a <dbl>, gene_pnp <dbl>,
-## #   gene_csp <dbl>, gene_ace_e <dbl>, gene_des_a <dbl>
+##    organism          tempurature_avg gene_gyr_a gene_nus_a gene_inf_c gene_inf_a
+##    <chr>                       <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
+##  1 Oscillatoria nig…            29            2          1          1          1
+##  2 Limnospira fusif…            40           NA         NA         NA         NA
+##  3 Nostoc flagellif…             3.2          2          1          2          0
+##  4 Trichodesmium er…             8            2          1          1          1
+##  5 Nostoc sphaeroid…            15.2          2          1          2          1
+##  6 Anabaena cylindr…             2.5          2          1          1          1
+##  7 Nostoc sp. 'Pelt…            -2            2          1          2          2
+##  8 Nostoc sp. TCL24…            25            2          1          2          1
+##  9 Nostoc sp. C052              20            2          1          2          1
+## 10 Nostoc sp. C057              15            2          1          2          1
+## # … with 17 more rows, and 17 more variables: gene_ots_a <dbl>,
+## #   gene_dna_k <dbl>, gene_rec_a <dbl>, gene_dna_j <dbl>, gene_ace_f <dbl>,
+## #   gene_dea_d <dbl>, gene_inf_b <dbl>, gene_tig <dbl>, gene_rnr <dbl>,
+## #   gene_dna_a <dbl>, gene_hup_b <dbl>, gene_rbf_a <dbl>, gene_yfl_a <dbl>,
+## #   gene_pnp <dbl>, gene_csp <dbl>, gene_ace_e <dbl>, gene_des_a <dbl>
 ```
 
 
+```r
+temp_organism <- filament_cyanos %>% 
+  select(organism, tempurature_avg, genus) %>% 
+  filter(!is.na(tempurature_avg)) %>% 
+  ggplot(aes(x = organism, y = tempurature_avg, fill = genus)) +
+  geom_col()+
+  theme(legend.position = "right",
+        text = element_text(size=7),
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Environmental Temperature for Cyanobacteria Species",x = "Cyanobacteria", y = "Temperature C")
+temp_organism
+```
+
+![](filamentous_cyano_metadata_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+
+```r
+ggsave("figures/temp_organism_plot.png", width=10, height=6, plot = temp_organism, dpi = 200)
+```
+
+## Compare single gene count to temperature in previouse figure
 
 
+```r
+#this one would be good for the shiny app bc you could change out each gene.
+temp_organism <- filament_cyanos %>% 
+  select(organism, tempurature_avg, genus, gene_dna_j) %>% 
+  filter(!is.na(tempurature_avg)) %>% 
+  ggplot(aes(x = organism, y = gene_dna_j, fill = genus)) +
+  geom_col()+
+  theme(legend.position = "right",
+        text = element_text(size=6),
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "CTG count for Cyanobacteria Species",x = "Cyanobacteria", y = "Gene Count")
+
+ggsave("figures/fil_gene_plot.png", width=10, height=6, plot = temp_organism, dpi = 200)
+```
+
+```
+## Warning: Removed 4 rows containing missing values (position_stack).
+```
+
+```r
+temp_organism
+```
+
+```
+## Warning: Removed 4 rows containing missing values (position_stack).
+```
+
+![](filamentous_cyano_metadata_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+
+#join function information at some point
+#filter out just the cold environment species and look at gene variation in them
