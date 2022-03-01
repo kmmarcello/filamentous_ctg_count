@@ -79,7 +79,7 @@ fil_heatmap
 
 ```{r}
 gene_data_organism <- filament_cyanos %>% 
-  select(organism, contains("gene_")) %>% 
+  select(organism, contains("gene_")) %>% # get rid of the gene_ part for the final pres.
   pivot_longer(-organism,
                names_to = "gene",
                values_to = "gene_count") %>% 
