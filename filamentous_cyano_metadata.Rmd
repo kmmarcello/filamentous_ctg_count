@@ -110,7 +110,7 @@ fil_heatmap
 
 ```{r}
 temperature_gene <- filament_cyanos %>% 
-  select(genus, tempurature_avg, contains("gene_")) %>% 
+  select(organism, tempurature_avg, contains("gene_")) %>% 
   filter(!is.na(tempurature_avg))
 temperature_gene
 ```
