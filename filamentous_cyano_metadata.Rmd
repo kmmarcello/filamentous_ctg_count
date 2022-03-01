@@ -130,9 +130,9 @@ temp_organism
 ```{r}
 #this one would be good for the shiny app bc you could change out each gene.
 temp_organism <- filament_cyanos %>% 
-  select(organism, tempurature_avg, genus, gene_des_a) %>% 
+  select(organism, tempurature_avg, genus, gene_dna_j) %>% 
   filter(!is.na(tempurature_avg)) %>% 
-  ggplot(aes(x = organism, y = gene_des_a, fill = genus)) +
+  ggplot(aes(x = organism, y = gene_dna_j, fill = genus)) +
   geom_col()+
   theme(legend.position = "right",
         text = element_text(size=6),
