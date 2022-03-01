@@ -123,8 +123,12 @@ temp_organism <- filament_cyanos %>%
   geom_col()+
   theme(legend.position = "right",
         text = element_text(size=6),
-        axis.text.x = element_text(angle = 60, hjust=1))
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Environmental Temperature for Cyanobacteria Species",x = "Temperature C", y = "Organism")
 temp_organism
+ggsave("figures/temp_organism_plot.png", width=10, height=6, plot = temp_organism, dpi = 200)
+
+
 ```
 
 ```{r}
@@ -137,9 +141,9 @@ temp_organism <- filament_cyanos %>%
   theme(legend.position = "right",
         text = element_text(size=6),
         axis.text.x = element_text(angle = 60, hjust=1))+
-  labs(title = "Environmental temperature for Cyanobacteria Species",x = "Temperature C", y = "Organism")
+  labs(title = "CTG count for Cyanobacteria Species",x = "Temperature C", y = "Organism")
 
-ggsave("figures/fil_temp_heatmap.png", width=10, height=6, plot = fil_heatmap, dpi = 200)
+ggsave("figures/fil_gene_plot.png", width=10, height=6, plot = temp_organism, dpi = 200)
 
 temp_organism
 ```
