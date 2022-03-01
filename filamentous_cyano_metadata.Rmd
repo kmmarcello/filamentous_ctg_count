@@ -115,6 +115,30 @@ temperature_gene <- filament_cyanos %>%
 temperature_gene
 ```
 
+```{r}
+temp_organism <- filament_cyanos %>% 
+  select(organism, tempurature_avg, genus) %>% 
+  filter(!is.na(tempurature_avg)) %>% 
+  ggplot(aes(x = organism, y = tempurature_avg, fill = genus)) +
+  geom_col()+
+  theme(legend.position = "right",
+        text = element_text(size=6),
+        axis.text.x = element_text(angle = 60, hjust=1))
+temp_organism
+```
 
+```{r}
+#this one would be good for the shiny app bc you could change out each gene.
+temp_organism <- filament_cyanos %>% 
+  select(organism, tempurature_avg, genus, gene_des_a) %>% 
+  filter(!is.na(tempurature_avg)) %>% 
+  ggplot(aes(x = organism, y = gene_des_a, fill = genus)) +
+  geom_col()+
+  theme(legend.position = "right",
+        text = element_text(size=6),
+        axis.text.x = element_text(angle = 60, hjust=1))
+temp_organism
+```
 
+#join function information at some point
 
