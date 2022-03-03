@@ -96,7 +96,7 @@ gene_data_organism$gene_count <- as.factor(gene_data_organism$gene_count)
 fil_heatmap <- gene_data_organism %>%
   ggplot(aes(y=gene, x=organism))+
   geom_tile(aes(fill= gene_count, color="white"))+
-  scale_fill_gradient(discrete=TRUE, direction = -1)+
+  scale_fill_viridis(discrete=TRUE, direction = -1)+
   theme(legend.position = "right",
         text = element_text(size=6),
         axis.text.x = element_text(angle = 60, hjust=1))+
