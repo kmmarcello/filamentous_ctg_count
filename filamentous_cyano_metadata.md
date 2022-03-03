@@ -15,6 +15,8 @@ output:
 ```
 
 
+##Load the Libraries
+
 
 ```r
 library(tidyverse)
@@ -69,6 +71,30 @@ library(viridis)
 
 ```
 ## Loading required package: viridisLite
+```
+
+```r
+library(shiny)
+library(shinydashboard)
+```
+
+```
+## 
+## Attaching package: 'shinydashboard'
+```
+
+```
+## The following object is masked from 'package:graphics':
+## 
+##     box
+```
+
+```r
+library(devtools)
+```
+
+```
+## Loading required package: usethis
 ```
 
 
@@ -454,6 +480,7 @@ temp_organism
 ```
 
 ![](filamentous_cyano_metadata_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+
 
 #join function information at some point
 #filter out just the cold environment species and look at gene variation in them

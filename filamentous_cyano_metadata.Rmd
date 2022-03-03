@@ -16,6 +16,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
+##Load the Libraries
+
 ```{r}
 library(tidyverse)
 library(RColorBrewer)
@@ -154,6 +156,7 @@ ggsave("figures/fil_gene_plot.png", width=10, height=6, plot = temp_organism, dp
 
 temp_organism
 ```
+
 
 #join function information at some point
 #filter out just the cold environment species and look at gene variation in them

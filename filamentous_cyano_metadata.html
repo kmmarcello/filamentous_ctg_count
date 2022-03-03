@@ -371,6 +371,7 @@ Cyanobacteria Over Global Temperature Gradients</h1>
 
 
 <pre class="r"><code>#install.packages(&quot;viridisLite&quot;)</code></pre>
+<p>##Load the Libraries</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --</code></pre>
 <pre><code>## v ggplot2 3.3.5     v purrr   0.3.4
@@ -393,6 +394,15 @@ library(janitor)</code></pre>
 <pre class="r"><code>library(skimr)
 library(viridis)</code></pre>
 <pre><code>## Loading required package: viridisLite</code></pre>
+<pre class="r"><code>library(shiny)
+library(shinydashboard)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;shinydashboard&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     box</code></pre>
+<pre class="r"><code>library(devtools)</code></pre>
+<pre><code>## Loading required package: usethis</code></pre>
 <pre class="r"><code>filament_cyanos &lt;- readr::read_csv(&quot;data/filamentous_cyano_meta.csv&quot;)</code></pre>
 <pre><code>## New names:
 ## * `Storage/Collection` -&gt; `Storage/Collection...10`
