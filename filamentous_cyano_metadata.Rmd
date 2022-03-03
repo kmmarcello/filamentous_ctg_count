@@ -145,6 +145,7 @@ ggsave("figures/temp_organism_plot.png", width=10, height=6, plot = temp_organis
 temp_organism <- filament_cyanos %>% 
   select(organism, tempurature_avg, genus, gene_dna_j) %>% 
   filter(!is.na(tempurature_avg)) %>% 
+  filter(!is.na(gene_dna_j)) %>% 
   ggplot(aes(x = organism, y = gene_dna_j, fill = genus)) +
   geom_col()+
   theme(legend.position = "right",
