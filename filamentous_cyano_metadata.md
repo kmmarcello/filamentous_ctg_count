@@ -21,18 +21,18 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
 ```
 
 ```
-## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.6     ✓ dplyr   1.0.8
-## ✓ tidyr   1.2.0     ✓ stringr 1.4.0
-## ✓ readr   2.1.1     ✓ forcats 0.5.1
+## v ggplot2 3.3.5     v purrr   0.3.4
+## v tibble  3.1.6     v dplyr   1.0.8
+## v tidyr   1.2.0     v stringr 1.4.0
+## v readr   2.1.2     v forcats 0.5.1
 ```
 
 ```
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ```
@@ -59,7 +59,7 @@ library(here)
 ```
 
 ```
-## here() starts at /Users/kaylahmarcello/Desktop/BIS15L-W22-cyanobacteria-blooms
+## here() starts at C:/Users/eliza/OneDrive/Documents/GitHub/BIS15L-W22-cyanobacteria-blooms
 ```
 
 ```r
@@ -84,13 +84,13 @@ filament_cyanos <- readr::read_csv("data/filamentous_cyano_meta.csv")
 
 ```
 ## Rows: 51 Columns: 40
-## ── Column specification ────────────────────────────────────────────────────────
+## -- Column specification --------------------------------------------------------
 ## Delimiter: ","
 ## chr (18): GenBank Assembly ID (Accession.version), RefSeq Assembly ID (Acces...
 ## dbl (22): Tempurature (avg), gene_gyrA, gene_nusA, gene_infC, gene_infA, gen...
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 ## Get an Idea of the Structure
 
@@ -195,22 +195,22 @@ head(filament_cyanos)
 ```
 
 ```
-## # A tibble: 6 × 40
-##   `GenBank Assemb…` `RefSeq Assemb…` `Accession #` Organism Genus Species Strain
+## # A tibble: 6 x 40
+##   `GenBank Assemb~` `RefSeq Assemb~` `Accession #` Organism Genus Species Strain
 ##   <chr>             <chr>            <chr>         <chr>    <chr> <chr>   <chr> 
-## 1 GCA_000020025.1   GCF_000020025.1  ASM2002v1     Nostoc … Nost… puncti… PCC 7…
-## 2 GCA_000317105.1   GCF_000317105.1  ASM31710v1    Oscilla… Osci… acumin… PCC 6…
-## 3 GCA_000317475.1   GCF_000317475.1  ASM31747v1    Oscilla… Osci… nigro-… <NA>  
-## 4 GCA_012516315.1   GCF_012516315.1  ASM1251631v1  Limnosp… Limn… fusifo… SAG 8…
-## 5 GCA_002813575.1   GCF_002813575.1  ASM281357v1   Nostoc … Nost… flagel… CCNUN1
-## 6 GCA_000014265.1   GCF_000014265.1  ASM1426v1     Trichod… Tric… erythr… IMS101
-## # … with 33 more variables: fila_single <chr>, environment <chr>,
+## 1 GCA_000020025.1   GCF_000020025.1  ASM2002v1     Nostoc ~ Nost~ puncti~ PCC 7~
+## 2 GCA_000317105.1   GCF_000317105.1  ASM31710v1    Oscilla~ Osci~ acumin~ PCC 6~
+## 3 GCA_000317475.1   GCF_000317475.1  ASM31747v1    Oscilla~ Osci~ nigro-~ <NA>  
+## 4 GCA_012516315.1   GCF_012516315.1  ASM1251631v1  Limnosp~ Limn~ fusifo~ SAG 8~
+## 5 GCA_002813575.1   GCF_002813575.1  ASM281357v1   Nostoc ~ Nost~ flagel~ CCNUN1
+## 6 GCA_000014265.1   GCF_000014265.1  ASM1426v1     Trichod~ Tric~ erythr~ IMS101
+## # ... with 33 more variables: fila_single <chr>, environment <chr>,
 ## #   `Storage/Collection...10` <chr>, `Regional Loaction` <chr>,
 ## #   `geographic feature` <chr>, `Environment Detail` <chr>,
 ## #   `Tempurature (avg)` <dbl>, `Lat/Long` <chr>, `Collection date` <chr>,
 ## #   `Storage/Collection...17` <chr>, genome_or_bin <chr>, gene_gyrA <dbl>,
 ## #   gene_nusA <dbl>, gene_infC <dbl>, gene_infA <dbl>, gene_otsA <dbl>,
-## #   gene_dnaK <dbl>, gene_recA <dbl>, gene_dnaJ <dbl>, gene_aceF <dbl>, …
+## #   gene_dnaK <dbl>, gene_recA <dbl>, gene_dnaJ <dbl>, gene_aceF <dbl>, ...
 ```
 
 
@@ -279,7 +279,7 @@ gene_data_genus
 ```
 
 ```
-## # A tibble: 861 × 3
+## # A tibble: 861 x 3
 ##    genus  gene       gene_count
 ##    <chr>  <chr>           <dbl>
 ##  1 Nostoc gene_gyr_a          2
@@ -292,7 +292,7 @@ gene_data_genus
 ##  8 Nostoc gene_dna_j         12
 ##  9 Nostoc gene_ace_f          3
 ## 10 Nostoc gene_dea_d         19
-## # … with 851 more rows
+## # ... with 851 more rows
 ```
 
 
@@ -331,7 +331,7 @@ gene_data_organism
 ```
 
 ```
-## # A tibble: 861 × 3
+## # A tibble: 861 x 3
 ##    organism                     gene       gene_count
 ##    <chr>                        <chr>           <dbl>
 ##  1 Nostoc punctiforme PCC 73102 gene_gyr_a          2
@@ -344,7 +344,7 @@ gene_data_organism
 ##  8 Nostoc punctiforme PCC 73102 gene_dna_j         12
 ##  9 Nostoc punctiforme PCC 73102 gene_ace_f          3
 ## 10 Nostoc punctiforme PCC 73102 gene_dea_d         19
-## # … with 851 more rows
+## # ... with 851 more rows
 ```
 
 
@@ -383,20 +383,20 @@ temperature_gene
 ```
 
 ```
-## # A tibble: 27 × 23
+## # A tibble: 27 x 23
 ##    organism          tempurature_avg gene_gyr_a gene_nus_a gene_inf_c gene_inf_a
 ##    <chr>                       <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
-##  1 Oscillatoria nig…            29            2          1          1          1
-##  2 Limnospira fusif…            40           NA         NA         NA         NA
-##  3 Nostoc flagellif…             3.2          2          1          2          0
-##  4 Trichodesmium er…             8            2          1          1          1
-##  5 Nostoc sphaeroid…            15.2          2          1          2          1
-##  6 Anabaena cylindr…             2.5          2          1          1          1
-##  7 Nostoc sp. 'Pelt…            -2            2          1          2          2
-##  8 Nostoc sp. TCL24…            25            2          1          2          1
+##  1 Oscillatoria nig~            29            2          1          1          1
+##  2 Limnospira fusif~            40           NA         NA         NA         NA
+##  3 Nostoc flagellif~             3.2          2          1          2          0
+##  4 Trichodesmium er~             8            2          1          1          1
+##  5 Nostoc sphaeroid~            15.2          2          1          2          1
+##  6 Anabaena cylindr~             2.5          2          1          1          1
+##  7 Nostoc sp. 'Pelt~            -2            2          1          2          2
+##  8 Nostoc sp. TCL24~            25            2          1          2          1
 ##  9 Nostoc sp. C052              20            2          1          2          1
 ## 10 Nostoc sp. C057              15            2          1          2          1
-## # … with 17 more rows, and 17 more variables: gene_ots_a <dbl>,
+## # ... with 17 more rows, and 17 more variables: gene_ots_a <dbl>,
 ## #   gene_dna_k <dbl>, gene_rec_a <dbl>, gene_dna_j <dbl>, gene_ace_f <dbl>,
 ## #   gene_dea_d <dbl>, gene_inf_b <dbl>, gene_tig <dbl>, gene_rnr <dbl>,
 ## #   gene_dna_a <dbl>, gene_hup_b <dbl>, gene_rbf_a <dbl>, gene_yfl_a <dbl>,
