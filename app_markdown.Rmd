@@ -11,9 +11,12 @@ date: '2022-03-03'
 filament_cyanos <- readr::read_csv("data/filamentous_cyano_meta.csv")
 
 filament_cyanos <- clean_names(filament_cyanos)
+
+trim_fil_cyn <- filament_cyanos %>% filter(!is.na(tempurature_avg)) %>% select(genus, organism, starts_with("gene_")) %>% mutate(organism = as.factor(organism), genus = as.factor(genus))
+
+head(trim_fil_cyn)
 ```
 
-```
 ```{r}
 library(shiny)
 library(shinydashboard)
@@ -23,11 +26,12 @@ ui <- dashboardPage(
   dashboardSidebar(disable = T),
   dashboardBody(
       box(title = "Plot Options", width = 3,
-          selectInput("x", "Select Gene", 
+          selectInput("y", "Select Gene", 
                       choices = c("gene_gyr_a", "gene_nus_a", "gene_inf_c","gene_inf_a", "gene_ots_a",
                                   "gene_dna_k", "gene_rec_a", "gene_dna_j","gene_ace_f", "gene_dea_d",
                                   "gene_inf_b", "gene_tig", "gene_rnr", "gene_dna_a", "gene_hup_b",
-                                  "gene_rbf_a", "gene_yfl_a", "gene_pnp", "gene_csp", "gene_ace_e", "gene_des_a" ), 
+                                  "gene_rbf_a", "gene_yfl_a", "gene_pnp", "gene_csp", "gene_ace_e",
+                                  "gene_des_a"), 
                       selected= "gene_gyr_a")
     ),
     box(
@@ -38,9 +42,11 @@ ui <- dashboardPage(
 
 server <- function(input, output, session) {
   output$plot <- renderPlot({
-    filament_cyanos %>% 
-      filter(!is.na(tempurature_avg)) %>% 
-      ggplot(aes_string(x = filament_cyanos$organism, y = input$x, fill = filament_cyanos$organism)) +
+    trim_fil_cyn %>% 
+      
+      ## pivot long, make gene the filter arg (or use t/f bool filter), make y = value (pivot to count?)
+      filter(gene)
+      ggplot(trim_fil_cyn, aes_string(x = "organism", y = "gene_dna_j"))+
       geom_col()+
       theme(legend.position = "right",
             text = element_text(size=6),
@@ -59,5 +65,8 @@ shinyApp(ui, server)
 ```
 
 
+```{r}
+glimpse(trim_fil_cyn)
+```
 
 
