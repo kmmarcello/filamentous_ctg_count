@@ -143,10 +143,10 @@ ggsave("figures/temp_organism_plot.png", width=10, height=6, plot = temp_organis
 ```{r}
 #this one would be good for the shiny app bc you could change out each gene.
 temp_organism <- filament_cyanos %>% 
-  select(organism, tempurature_avg, genus, gene_dna_j) %>% 
+  select(organism, tempurature_avg, genus, gene_gyr_a) %>% 
   filter(!is.na(tempurature_avg)) %>% 
-  filter(!is.na(gene_dna_j)) %>% 
-  ggplot(aes(x = organism, y = gene_dna_j, fill = genus)) +
+  filter(!is.na(gene_gyr_a)) %>% 
+  ggplot(aes(x = organism, y = gene_gyr_a, fill = genus)) +
   geom_col()+
   theme(legend.position = "right",
         text = element_text(size=6),
