@@ -13,7 +13,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 #install.packages("viridisLite")
+#install.packages("svglite")
 ```
+
 
 
 ##Load the Libraries
@@ -29,6 +31,7 @@ library(viridis)
 library(shiny)
 library(shinydashboard)
 library(devtools)
+library(svglite)
 ```
 
 ```{r}
@@ -77,7 +80,7 @@ fil_heatmap <- gene_data_genus %>%
   coord_fixed()+ #maintains aspect ratio so 1 unit on x is 1 unit on y
   labs(title = "Cold Tolerance Gene Count for Cyanobacteria Genera",x = "Genome", y = "Gene")
 
-ggsave("figures/fil_gene_count_genus_heatmap.png", width=10, height=6, plot = fil_heatmap, dpi = 200)
+ggsave("figures/fil_gene_count_genus_heatmap.svg", width=10, height=6, plot = fil_heatmap, dpi = 200)
 
 fil_heatmap 
 ```
@@ -103,12 +106,12 @@ fil_heatmap <- gene_data_organism %>%
   geom_tile(aes(fill= gene_count, color="white"))+
   scale_fill_viridis(discrete=TRUE, direction = -1)+
   theme(legend.position = "right",
-        text = element_text(size=6),
+        text = element_text(size=7),
         axis.text.x = element_text(angle = 60, hjust=1))+
   coord_fixed()+ #maintains aspect ratio so 1 unit on x is 1 unit on y
   labs(title = "Cold Tolerance Gene Count for Cyanobacteria Strains",x = "Genome", y = "Gene")
 
-ggsave("figures/fil_gene_count_heatmap.png", width=10, height=6, plot = fil_heatmap, dpi = 200)
+ggsave("figures/fil_gene_count_heatmap.jpeg", width=10, height=6, plot = fil_heatmap, dpi = 200)
 
 fil_heatmap 
 ```
@@ -133,7 +136,7 @@ temp_organism <- filament_cyanos %>%
         axis.text.x = element_text(angle = 60, hjust=1))+
   labs(title = "Environmental Temperature for Cyanobacteria Species",x = "Cyanobacteria", y = "Temperature C")
 temp_organism
-ggsave("figures/temp_organism_plot.png", width=10, height=6, plot = temp_organism, dpi = 200)
+ggsave("figures/temp_organism_plot.svg", width=10, height=6, plot = temp_organism, dpi = 200)
 
 
 ```
@@ -153,7 +156,7 @@ temp_organism <- filament_cyanos %>%
         axis.text.x = element_text(angle = 60, hjust=1))+
   labs(title = "CTG count for Cyanobacteria Species",x = "Cyanobacteria", y = "Gene Count")
 
-ggsave("figures/fil_gene_plot.png", width=10, height=6, plot = temp_organism, dpi = 200)
+ggsave("figures/fil_gene_plot.svg", width=10, height=6, plot = temp_organism, dpi = 200)
 
 temp_organism
 ```
