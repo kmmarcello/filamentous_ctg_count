@@ -30,12 +30,13 @@ trim_fil_cyn_long <- trim_fil_cyn %>%
                values_to = "n")
 trim_fil_cyn_long
 ```
+
+## Filter out NA's
+
 ```{r}
-trim_fil_cyn_long2<- trim_fil_cyn %>% 
-  pivot_longer(-c(genus, organism),
-               names_to ="gene",
-               values_to = "n") %>%
+trim_fil_cyn_long2<- trim_fil_cyn_long %>% 
   filter(n!=is.na(n))
+trim_fil_cyn_long2
 ```
 
 ## App
