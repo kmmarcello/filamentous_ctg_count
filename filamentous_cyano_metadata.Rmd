@@ -145,10 +145,10 @@ ggsave("figures/temp_organism_plot.svg", width=10, height=6, plot = temp_organis
 
 ```{r}
 temp_organism <- filament_cyanos %>% 
-  select(organism, tempurature_avg, genus, gene_gyr_a) %>% 
+  select(organism, tempurature_avg, genus, gene_dea_d) %>% 
   filter(!is.na(tempurature_avg)) %>% 
-  filter(!is.na(gene_gyr_a)) %>% 
-  ggplot(aes(x = organism, y = gene_gyr_a, fill = genus)) +
+  filter(!is.na(gene_dea_d)) %>% 
+  ggplot(aes(x = organism, y = gene_dea_d, fill = genus)) +
   geom_col()+
   theme(legend.position = "right",
         text = element_text(size=6),
