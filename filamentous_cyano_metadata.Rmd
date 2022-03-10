@@ -136,7 +136,7 @@ temp_organism <- filament_cyanos %>%
         axis.text.x = element_text(angle = 60, hjust=1))+
   labs(title = "Environmental Temperature for Cyanobacteria Species",x = "Cyanobacteria", y = "Temperature C")
 temp_organism
-ggsave("figures/temp_organism_plot.svg", width=10, height=6, plot = temp_organism, dpi = 200)
+ggsave("figures/temp_organism_plot.png", width=10, height=6, plot = temp_organism, dpi = 200)
 
 
 ```
@@ -155,7 +155,7 @@ temp_organism <- filament_cyanos %>%
         axis.text.x = element_text(angle = 60, hjust=1))+
   labs(title = "CTG count for Cyanobacteria Species",x = "Cyanobacteria", y = "Gene Count")
 
-ggsave("figures/fil_gene_plot.svg", width=10, height=6, plot = temp_organism, dpi = 200)
+ggsave("figures/fil_gene_plot.png", width=10, height=6, plot = temp_organism, dpi = 200)
 
 temp_organism
 ```
