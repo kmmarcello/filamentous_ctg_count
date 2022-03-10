@@ -100,7 +100,6 @@ gene_data_organism
 gene_data_organism$gene_count <- as.factor(gene_data_organism$gene_count)
 ```
 
-
 ```{r}
 fil_heatmap <- gene_data_organism %>%
   ggplot(aes(y=gene, x=organism))+
@@ -112,9 +111,9 @@ fil_heatmap <- gene_data_organism %>%
   coord_fixed()+ #maintains aspect ratio so 1 unit on x is 1 unit on y
   labs(title = "Cold Tolerance Gene Count for Cyanobacteria Strains",x = "Genome", y = "Gene")
 
-ggsave("figures/fil_gene_count_heatmap.jpeg", width=10, height=6, plot = fil_heatmap, dpi = 200)
+ggsave("figures/fil_gene_count_heatmap.png", width=10, height=6, plot = fil_heatmap, dpi = 200)
 
-fil_heatmap 
+fil_heatmap
 ```
 
 ## Cyanobacteria Strain Environmental Temperatures
