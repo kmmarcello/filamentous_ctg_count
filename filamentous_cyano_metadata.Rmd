@@ -73,13 +73,13 @@ gene_data_genus$gene_count <- as.factor(gene_data_genus$gene_count)
 ```{r}
 fil_heatmap <- gene_data_genus %>%
   ggplot(aes(y=gene, x=genus))+
-  geom_tile(aes(fill= gene_count, color="white"))+
-  scale_fill_viridis(discrete=TRUE, direction = -1)+
+  geom_tile(aes(fill= gene_count))+
+  scale_fill_viridis(discrete=TRUE, direction = -1, option = "mako")+
   theme(legend.position = "right",
         text = element_text(size=6),
         axis.text.x = element_text(angle = 45, hjust=1))+
   coord_fixed()+ #maintains aspect ratio so 1 unit on x is 1 unit on y
-  labs(title = "Cold Tolerance Gene Count for Cyanobacteria Genera",x = "Genome", y = "Gene")
+  labs(title = "Cold Tolerance Gene Count for Cyanobacteria Genera",x = "Genus", y = "Gene")
 
 ggsave("figures/fil_gene_count_genus_heatmap.svg", width=10, height=6, plot = fil_heatmap, dpi = 200)
 
@@ -103,13 +103,13 @@ gene_data_organism$gene_count <- as.factor(gene_data_organism$gene_count)
 ```{r}
 fil_heatmap <- gene_data_organism %>%
   ggplot(aes(y=gene, x=organism))+
-  geom_tile(aes(fill= gene_count, color="white"))+
-  scale_fill_viridis(discrete=TRUE, direction = -1)+
+  geom_tile(aes(fill= gene_count))+
+  scale_fill_viridis(discrete=TRUE, direction = -1, option = "mako")+
   theme(legend.position = "right",
-        text = element_text(size=7),
+        text = element_text(size=10),
         axis.text.x = element_text(angle = 60, hjust=1))+
   coord_fixed()+ #maintains aspect ratio so 1 unit on x is 1 unit on y
-  labs(title = "Cold Tolerance Gene Count for Cyanobacteria Strains",x = "Genome", y = "Gene")
+  labs(title = "Cold Tolerance Gene Count for Cyanobacteria Strains",x = "Cyanobacteria", y = "Gene")
 
 ggsave("figures/fil_gene_count_heatmap.png", width=10, height=6, plot = fil_heatmap, dpi = 200)
 
@@ -131,8 +131,9 @@ temp_organism <- filament_cyanos %>%
   filter(!is.na(tempurature_avg)) %>% 
   ggplot(aes(x = organism, y = tempurature_avg, fill = genus)) +
   geom_col()+
+  scale_fill_viridis(discrete=TRUE, option = "mako")+
   theme(legend.position = "right",
-        text = element_text(size=7),
+        text = element_text(size=10),
         axis.text.x = element_text(angle = 60, hjust=1))+
   labs(title = "Environmental Temperature for Cyanobacteria Species",x = "Cyanobacteria", y = "Temperature C")
 temp_organism
@@ -145,15 +146,16 @@ ggsave("figures/temp_organism_plot.png", width=10, height=6, plot = temp_organis
 
 ```{r}
 temp_organism <- filament_cyanos %>% 
-  select(organism, tempurature_avg, genus, gene_dea_d) %>% 
+  select(organism, tempurature_avg, genus, gene_des_a) %>% 
   filter(!is.na(tempurature_avg)) %>% 
-  filter(!is.na(gene_dea_d)) %>% 
-  ggplot(aes(x = organism, y = gene_dea_d, fill = genus)) +
+  filter(!is.na(gene_des_a)) %>% 
+  ggplot(aes(x = organism, y = gene_des_a, fill = genus)) +
   geom_col()+
+  scale_fill_viridis(discrete=TRUE, option = "mako")+
   theme(legend.position = "right",
-        text = element_text(size=6),
+        text = element_text(size=10),
         axis.text.x = element_text(angle = 60, hjust=1))+
-  labs(title = "CTG count for Cyanobacteria Species",x = "Cyanobacteria", y = "Gene Count")
+  labs(title = "CTG count for Cyanobacteria Species",x = "Cyanobacteria", y = "DesA Gene Count")
 
 ggsave("figures/fil_gene_plot.png", width=10, height=6, plot = temp_organism, dpi = 200)
 
