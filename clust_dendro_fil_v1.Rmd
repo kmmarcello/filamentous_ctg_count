@@ -1,11 +1,7 @@
 ---
-html_document: 
-    keep_md: yes
+title: "Untitled"
 author: "Kaylah Marcello"
-date: "2/15/2022"
-#output: html_notebook
-#runtime: shiny
-title: "Cold Tolerance Gene Variation In Cyanobacteria Over Global Temperature Gradients"
+date: '2023-01-17'
 output: 
   html_document: 
     keep_md: yes
@@ -245,85 +241,3 @@ ggsave("figures/fil_gene_plot.png", width=10, height=6, plot = temp_organism, dp
 
 temp_organism
 ```
-
-# Shiny app 
-
-
-### Load the libraries
-
-```{r}
-library("tidyverse")
-library("janitor")
-```
-
-### Import the data and clean
-
-```{r}
-filament_cyanos <- read_csv("data/filamentous_cyano_meta.csv") %>% clean_names()
-
-trim_fil_cyn <- filament_cyanos %>% 
-  filter(!is.na(tempurature_avg)) %>% 
-  select(genus, organism, starts_with("gene_")) %>% 
-  mutate(organism = as.factor(organism), genus = as.factor(genus))
-
-head(trim_fil_cyn)
-```
-
-### Make a long version
-```{r}
-trim_fil_cyn_long <- trim_fil_cyn %>% 
-  pivot_longer(-c(genus, organism),
-               names_to ="gene",
-               values_to = "n")
-trim_fil_cyn_long
-```
-
-### Filter out NA's
-
-```{r}
-trim_fil_cyn_long2<- trim_fil_cyn_long %>% 
-  filter(n!=is.na(n))
-trim_fil_cyn_long2
-```
-
-## App
-```{r}
-library(shiny)
-library(shinydashboard)
-library(shiny)
-#ui <- dashboardPage(
-  dashboardHeader( title = "CTG count for Cyanobacteria Species"),
-  dashboardSidebar(disable = T),
-  dashboardBody(
-      box(title = "Plot Options", width = 3,
-          selectInput("x", "Select Gene", 
-                      choices = c("gene_gyr_a", "gene_nus_a", "gene_inf_c","gene_inf_a", "gene_ots_a",
-                                  "gene_dna_k", "gene_rec_a", "gene_dna_j","gene_ace_f", "gene_dea_d",
-                                  "gene_inf_b", "gene_tig", "gene_rnr", "gene_dna_a", "gene_hup_b",
-                                  "gene_rbf_a", "gene_yfl_a", "gene_pnp", "gene_csp", "gene_ace_e",
-                                  "gene_des_a"), 
-                      selected= "gene_gyr_a")
-    ),
-    box(
-      plotOutput("plot", width = "600px", height = "500px")
-     )
-  )
-)
-
-#server <- function(input, output, session) {
-  output$plot <- renderPlot({
-    trim_fil_cyn_long2 %>% 
-      filter(gene==input$x) %>% 
-      ggplot(aes_string(x="organism", y="n", fill="organism"))+
-      geom_col()+
-      theme(legend.position = "none",
-            text = element_text(size=6),
-            axis.text.x = element_text(angle = 60, hjust=1))+
-      labs(title = "CTG count for Cyanobacteria Species", x = "Cyanobacteria", y = "Gene Count")
-  })
-  session$onSessionEnded(stopApp)
-}
-
-shinyApp(ui, server)
-```
-

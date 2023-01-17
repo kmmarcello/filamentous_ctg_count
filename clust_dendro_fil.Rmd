@@ -1,0 +1,122 @@
+---
+title: "Untitled"
+author: "Kaylah Marcello"
+date: '2023-01-17'
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+[Statology: Hierarchical Clustering in R: Step-by-Step Example](https://www.statology.org/hierarchical-clustering-in-r/)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#install.packages("viridisLite")
+#install.packages("svglite")
+#install.packages("factoextra")
+#install.packages("cluster")
+#install.packages("ggdendro")
+#install.packages("grid")
+```
+
+## Load the Libraries
+
+```{r}
+library(tidyverse)
+library(RColorBrewer)
+library(paletteer)
+library(janitor)
+library(here)
+library(skimr)
+library(viridis)
+library(shiny)
+library(shinydashboard)
+library(devtools)
+library(svglite)
+library(cluster)
+library(factoextra)
+library(ggdendro)
+library(grid)
+```
+
+```{r}
+filament_cyanos <- readr::read_csv("data/filamentous_cyano_meta.csv")
+```
+
+```{r}
+summary(filament_cyanos)
+```
+
+```{r}
+filament_cyanos <- clean_names(filament_cyanos)
+```
+
+```{r}
+names(filament_cyanos)
+```
+
+```{r}
+head(filament_cyanos)
+```
+
+```{r}
+gene_data_organism <- filament_cyanos %>% 
+  select(organism, contains("gene_")) %>% # get rid of the gene_ part for the final pres.
+  pivot_longer(-organism,
+               names_to = "gene",
+               values_to = "gene_count") %>% 
+  filter(!is.na(gene_count))
+gene_data_organism
+```
+
+## combining heatmap and dendrogram
+```{r}
+gene_data_organism$gene_count <- as.numeric(gene_data_organism$gene_count) # needs to be numeric for scale()
+lapply(gene_data_organism, class)
+```
+
+```{r}
+clust_map_org <- gene_data_organism %>% # make pivot_wider for scale()
+  pivot_wider(names_from = "gene",
+              values_from = "gene_count")
+clust_map_org
+```
+
+```{r}
+scaled_clust_map <- clust_map_org 
+scaled_clust_map[, c(2:22)] <- scale(scaled_clust_map[, 2:22])
+scaled_clust_map
+```
+
+```{r}
+m <- c("average", "single", "complete", "ward")
+names(m) <- c( "average", "single", "complete", "ward")
+```
+
+```{r}
+ac <- function(x) {
+  agnes(scaled_clust_map, method = x)$ac
+}
+```
+
+```{r}
+sapply(m, ac)
+```
+"gene_gyr_a", "gene_nus_a", "gene_inf_c", "gene_inf_a", "gene_ots_a", "gene_dna_k", "gene_rec_a", "gene_dna_j", "gene_ace_f", "gene_dea_d", "gene_inf_b", "gene_tig", "gene_rnr", "gene_dna_a", "gene_hup_b", "gene_rbf_a", "gene_yfl_a", "gene_pnp", "gene_csp", "gene_ace_e", "gene_des_a"
+
+```{r}
+clust <- agnes(scaled_clust_map, method = "ward")
+```
+
+```{r}
+pltree(clust, cex = 0.6, hang = -1, main = "Dendrogram")
+```
+
+```{r}
+#gap_stat <- clusGap(scaled_clust_map, FUN = hcut, nstart = 25, K.max = 10, B = 50)
+#fviz_gap_stat(gap_stat)
+```
+
