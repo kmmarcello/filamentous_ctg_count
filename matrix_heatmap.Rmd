@@ -167,3 +167,7 @@ heatmap.2(mat_data,
 dev.off()
 ```
 
+```{r echo = FALSE}
+knitr::include_graphics("fil_matrix_heatmap.png")
+```
+
