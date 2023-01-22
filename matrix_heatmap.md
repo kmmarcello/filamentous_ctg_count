@@ -954,7 +954,7 @@ Colors=brewer.pal(11,"PuBuGn")
 #Colors=c("white","blue", "green")
 #Colors=colorRampPalette(Colors)(100)
 heatmap.2(mat_data, 
-          margins = c(7, 19), # words aren't cut off in png
+          margins = c(7, 19), # words aren't cut off in png output
           trace = "none", # trace is the cyan histogram, get rid of it
           density.info="density", # density plot, not histogram
           col=Colors,
