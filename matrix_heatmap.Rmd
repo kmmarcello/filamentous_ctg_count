@@ -101,7 +101,7 @@ scaled_clust_map
 # lapply(scaled_clust_map, class) # was having trouble with class switching
 ```
 
-```{r}
+```{r echo = FALSE}
 rnames <- scaled_clust_map[,1] # made singe column to use as rownames
 rnames
 ```

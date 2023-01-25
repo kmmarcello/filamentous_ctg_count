@@ -1,0 +1,128 @@
+---
+title: "Matrix heatmap with Phormidium and Aurora added"
+author: "Kaylah Marcello"
+date: '2023-01-25'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE}
+#install.packages("viridisLite")
+#install.packages("svglite")
+#install.packages("factoextra")
+#install.packages("cluster")
+#install.packages("ggdendro")
+#install.packages("grid")
+```
+
+## Load the Libraries
+
+```{r message=FALSE}
+library(tidyverse)
+library(RColorBrewer)
+library(paletteer)
+library(janitor)
+library(here)
+library(skimr)
+#library(viridis)
+#library(shiny)
+#library(shinydashboard)
+library(devtools)
+library(svglite)
+#library(cluster)
+#library(factoextra)
+library(ggdendro)
+library(grid)
+library(gplots)
+```
+
+```{r message=FALSE}
+filament_cyanos <- readr::read_csv("data/hmms_CTG_matrix.csv")
+```
+
+```{r}
+summary(filament_cyanos)
+```
+
+
+```{r}
+head(filament_cyanos)
+```
+
+```{r}
+#filament_cyanos <- clean_names(filament_cyanos)
+```
+
+```{r}
+names(filament_cyanos)
+```
+
+```{r}
+#lapply(filament_cyanos, class)
+```
+
+```{r}
+filament_cyanos_scaled <- filament_cyanos 
+filament_cyanos_scaled[, c(2:22)] <- scale(filament_cyanos_scaled[, 2:22])
+filament_cyanos_scaled[is.na(filament_cyanos_scaled)] <- 0
+
+filament_cyanos_scaled
+```
+
+```{r}
+genome_or_bin <- filament_cyanos_scaled[,1] # made singe column to use as rownames
+genome_or_bin
+```
+
+```{r message=FALSE}
+organisms <- as.list(genome_or_bin) # changed to list so I could add to matrix, did not work so I wrote them all out to make a vectr. I think there is a problem with the title "organism"
+organisms
+```
+
+```{r}
+filament_cyanos_matrix <- data.matrix(filament_cyanos_scaled[,2:ncol(filament_cyanos_scaled)])
+filament_cyanos_matrix[is.na(filament_cyanos_matrix)] <- 0
+filament_cyanos_matrix[,colnames(filament_cyanos_matrix)!="genome_or_bin"]
+#rownames(filament_cyanos_scaled) <- organisms #still doesnt work
+```
+
+```{r message=FALSE}
+rownames(filament_cyanos_matrix) <- c("Anabaena_cylindrica_PCC_7122", "Anabaena_sp_90", "Anabaena_sp_WA102", "Anabaena_sp_YBS01", "Aurora_vandensis", "Calothrix_sp_PCC_7507", "Candidatus_Melainabacteria_bacterium_MEL_A1", "Dolichospermum_flos_aquae_CCAP_1403_13F", "Dolichospermum_sp_UHCC_0315A", "Gloeobacter_kilaueensis_JS1", "Leptolyngbya_boryana_IAM_M-101", "Leptolyngbya_boryana_NIES-2135", "Leptolyngbya_boryana_dg5", "Leptolyngbya_sp_NIES-3755", "Leptolyngbya_sp_O-77", "Leptolyngbya_sp_PCC_7376", "Microcoleus_sp_PCC_7113", "Nostoc_azollae_0708", "Nostoc_edaphicum_CCNP1411", "Nostoc_flagelliforme_CCNUN1", "Nostoc_punctiforme_PCC_73102", "Nostoc_spNIES-3756", "Nostoc_sp_ATCC_53789", "Nostoc_sp_C052", "Nostoc_sp_C057", "Nostoc_sp_CENA543", "Nostoc_sp_Lobaria_pulmonaria_5183_cyanobiont", "Nostoc_sp_PCC_7120_FACHB-418", "Nostoc_sp_PCC_7524", "Nostoc_sp_Peltigera_membranacea_cyanobiont_N6", "Nostoc_sp_TCL240_02", "Nostoc_sp_TCL26_01", "Nostoc_sphaeroides", "Nostoc_sphaeroides_CCNUC1", "Oscillatoria_acuminata_PCC_6304", "Oscillatoria_nigro_viridis_PCC_7112",  "Phormidium_pseudopriestleyi", "Pseudanabaena_sp_ABRG5_3", "Pseudanabaena_sp_PCC_7367", "Synechococcus_lividus_PCC_6715", "Thermoleptolyngbya_sp_PKUAC_SCTA183", "Trichodesmium_erythraeum_IMS101", "Leptolyngbya D1", "Phormidesmis", "Leptolyngbya D3", "Anabaena")
+
+filament_cyanos_matrix
+```
+
+```{r}
+lapply(filament_cyanos_matrix, class)
+```
+
+
+```{r}
+png(file="fil_matrix_heatmap.png",
+    width = 5*300,        # 5 x 300 pixels
+    height = 5*275,
+    res = 300,            # 300 pixels per inch
+    pointsize = 6)        # smaller font size)
+
+row_distance = dist(filament_cyanos_matrix, method = "manhattan") 
+row_cluster = hclust(row_distance, method = "ward.D")
+col_distance = dist(t(filament_cyanos_matrix), method = "manhattan")
+col_cluster = hclust(col_distance, method = "ward.D")
+
+
+Colors=brewer.pal(11,"PuBuGn")  
+#Colors=c("white","blue", "green")
+#Colors=colorRampPalette(Colors)(100)
+heatmap.2(filament_cyanos_matrix, 
+          margins = c(7, 19), # words aren't cut off in png output
+          trace = "none", # trace is the cyan histogram, get rid of it
+          density.info="density", # density plot, not histogram
+          col=Colors,
+          Rowv = as.dendrogram(row_cluster), # changing the cluster and distance methods from the default
+          Colv = as.dendrogram(col_cluster)) 
+dev.off()
+```
+
